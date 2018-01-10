@@ -20,7 +20,7 @@ meteo_month_list <- list(
    # dane meteorologiczne -> miesieczne -> synop -> smd:
    temp_max_avg = 7, # Średnia temperatura maksymalna 
    temp_min_avg = 11, # Średnia temperatura minimalna
-   temp_avg_month = 13, # Średnia temperatura miesięczna
+   temp_avg = 13, # Średnia temperatura miesięczna
    temp_ground_min = 15, # Minimalna temperatura przy gruncie
    rainfall_sum = 17, # Miesięczna suma opadów
    sunshine = 23 # Miesięczna suma usłonecznienia
@@ -33,12 +33,12 @@ meteo_month_list <- list(
 
 #-----------------------------------------------
 
-create_dates_list <- function(from, to, years) {
+create_dates_list <- function(from_month, to_month, years) {
    dates_list <- NULL
    
    for(year in years) {
-      dates <- seq(as.Date(paste0(year, "-", from)), 
-                   as.Date(paste0(year, "-", to)), 
+      dates <- seq(as.Date(paste0(year, "-", from_month, "-", '01')), 
+                   as.Date(paste0(year, "-", to_month, "-", '01')), 
                    "month")
       dates_list_tmp <- as.character(dates)
       dates_list <- append(dates_list, dates_list_tmp)
@@ -50,12 +50,12 @@ create_dates_list <- function(from, to, years) {
 # Info:
 ### Creates a list of dates based on the specified time interval
 # Input:
-### from - start date in format "dd-mm"
-### to - end date in format "dd-mm"
+### from_month - start month in format "mm"
+### to_month - end month in format "mm"
 ### year - range of years in format c(yyyy:yyyy)
 
 # Example:
-#dates_list <- create_dates_list("05-01", "09-30", c(2011:2016))
+#dates_list <- create_dates_list("05", "09", c(2011:2016))
 
 #-----------------------------------------------
 
@@ -118,16 +118,16 @@ download.meteo <- function(dates_list, station, variable) {
 
 # Info:
 ### Download selected meteorological data for the specified time period and station
-### Doesn't support 2000 or earlier years
+### Doesn't support 2000 and earlier years
 # Input:
 ### dates_list - list with dates, use create_dates_list function 
 ### station - name of the meteorological station, see station_list
 ### variable - meteorological variable, see accordingly meteo_day_list or meteo_month_list
 
 # Example:
-#temp_min_day <- download.meteo(dates_list,
+#temp_max_day <- download.meteo(dates_list,
 #                               station_list[station_list$name == "Poznan"],
-#                               meteo_day_list$temp_min)
+#                               meteo_day_list$temp_max)
 #temp_avg_month <- download.meteo(dates_list,
 #                                 station_list[station_list$name == "Poznan"],
 #                                 meteo_month_list$temp_avg)
