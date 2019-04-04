@@ -175,6 +175,7 @@ cloud.list <- function(folders, shape, cloudiness = 0.6) {
 # Info:
 ### Returns data frame with useful (below the threshold value) 
 ### and useless (above the threshold value) satellite scenes.
+### This is average cloudiness for all features.
 # Input:
 ### folders - list with names of directories
 ### shape - vector shape
@@ -185,8 +186,8 @@ cloud.list <- function(folders, shape, cloudiness = 0.6) {
 #shape <- readOGR("shape.shp")
 #folders <- list.dirs("Scenes")
 #folders <- folders[-1]
-#test <- cloud.list(folders, shape)
-#test
+#test_clouds <- cloud.list(folders, shape)
+#test_clouds
 
 #-----------------------------------------------
 
@@ -229,7 +230,6 @@ calculate_stats <- function(folders, shape) {
 
 # Example:
 #shape <- readOGR("shape.shp")
-#folders <- list.dirs("Scenes")
-#folders <- folders[-1]
-#test <- calculate_stats(folders, shape)
-#write.csv2(test, file = "results.csv", row.names=FALSE)
+#folders <- test_clouds$useful_scenes$Name
+#test_stats <- calculate_stats(folders, shape)
+#write.csv2(test_stats, file = "results.csv", row.names=FALSE)
