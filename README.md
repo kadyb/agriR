@@ -47,7 +47,7 @@ vlayer2 = st_read("path_to_polygon2")
 merged_bbox = merge_bbox(vlayer1, vlayer2)
 ```
 
-## meteo.R - download.meteo()
+## meteo.R - download.meteo(dates_list, station, variable)
 Download selected meteorological data for the specified time period and station from [IMGW](https://dane.imgw.pl/). Doesn't support 2000 and earlier years. Function requires these arguments:
 - `dates_list` - List with dates, use create_dates_list function 
 - `station` - Name of the meteorological station, see station_list
@@ -80,6 +80,55 @@ To transform downloaded meteo data to long or joint format use `transform.meteo(
 ``` r
 temp_min_day = transform.meteo(temp_min_day, "visualize")
 temp_avg_month = transform.meteo(temp_avg_month, "join")
+```
+
+## spectralTools.R - interpretQA(x, cloud, shadow, cirrus", sensor)
+Creates a raster with decoded quality conditions classes from Landsat 4-8 scenes. Function requires these arguments:
+- `x` - Pixel_qa raster 
+- `cloud` (= "high") - Level of confidence of pixels containing clouds ("high", "medium", "low")
+- `shadow` (= TRUE) - Include pixels containing shadows (TRUE, FALSE)
+- `cirrus` (= "high") - Level of confidence of pixels containing cirrus ("high", "medium", "low")
+- `sensor` - Name of sensor ("landsat8", "landsat7")
+
+**Example**
+``` r
+ras <- raster("LE07_L1TP_191023_20130703_20161123_01_T1_pixel_qa.tif")
+test <- interpretQA(ras, sensor = "landsat7")
+writeRaster(test, filename = "test.tif")
+```
+
+To iterative processing through folders and save results to files use `create_mask(folders)`:
+- `folders` - List with names of directories
+
+**Example**
+``` r
+folders = list.dirs("Scenes")
+folders = folders[-1] # skip the main folder
+create_mask(folders[1])
+```
+
+## spectralTools.R - cloud.list(folders, shape, cloudiness)
+Returns data frame with useful (below the threshold value) and useless (above the threshold value) satellite scenes. This is average cloudiness for all features. Function requires these arguments:
+- `folders` - List with names of directories
+- `shape` - Vector shape
+- `cloudiness` (= 0.6) - Level of cloudiness from 0 to 1
+
+**Example**
+``` r
+shape <- readOGR("shape.shp")
+test_clouds <- cloud.list(folders, shape) # folders have been set before
+test_clouds
+```
+
+## spectralTools.R - calculate_stats(folders, shape)
+Returns the data frame with mean and median value of spectral indicies for each feature. Function requires these arguments:
+- `folders` - List with names of directories
+- `shape` - Vector shape
+
+**Example**
+``` r
+test_stats = calculate_stats(folders, shape) # folders and shape have been set before
+write.csv2(test_stats, file = "results.csv", row.names = FALSE)
 ```
 
 ## calibration.py
