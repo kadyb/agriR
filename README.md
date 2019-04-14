@@ -55,12 +55,12 @@ Download selected meteorological data for the specified time period and station 
 
 **Example**
 ``` r
-temp_max_day <- download.meteo(dates_list,
-                               station_list[station_list$name == "Poznan"],
-                               meteo_day_list$temp_max)
-temp_avg_month <- download.meteo(dates_list,
-                                 station_list[station_list$name == "Poznan"],
-                                 meteo_month_list$temp_avg)
+temp_max_day = download.meteo(dates_list,
+                              station_list[station_list$name == "Poznan"],
+                              meteo_day_list$temp_max)
+temp_avg_month = download.meteo(dates_list,
+                                station_list[station_list$name == "Poznan"],
+                                meteo_month_list$temp_avg)
 ```
 To create a list of dates based on the specified time interval use `create_dates_list(from_month, to_month, year)`:
 - `from_month` - Start month in format "mm"
@@ -69,7 +69,7 @@ To create a list of dates based on the specified time interval use `create_dates
 
 **Example**
 ``` r
-dates_list <- create_dates_list("05", "09", c(2011:2016))
+dates_list = create_dates_list("05", "09", c(2011:2016))
 ```
 
 To transform downloaded meteo data to long or joint format use `transform.meteo(meteo_data, purpose)`:
@@ -82,7 +82,7 @@ temp_min_day = transform.meteo(temp_min_day, "visualize")
 temp_avg_month = transform.meteo(temp_avg_month, "join")
 ```
 
-## spectralTools.R - interpretQA(x, cloud, shadow, cirrus", sensor)
+## spectralTools.R - interpretQA(x, cloud, shadow, cirrus, sensor)
 Creates a raster with decoded quality conditions classes from Landsat 4-8 scenes. Function requires these arguments:
 - `x` - Pixel_qa raster 
 - `cloud` (= "high") - Level of confidence of pixels containing clouds ("high", "medium", "low")
@@ -92,8 +92,8 @@ Creates a raster with decoded quality conditions classes from Landsat 4-8 scenes
 
 **Example**
 ``` r
-ras <- raster("LE07_L1TP_191023_20130703_20161123_01_T1_pixel_qa.tif")
-test <- interpretQA(ras, sensor = "landsat7")
+ras = raster("LE07_L1TP_191023_20130703_20161123_01_T1_pixel_qa.tif")
+test = interpretQA(ras, sensor = "landsat7")
 writeRaster(test, filename = "test.tif")
 ```
 
@@ -115,8 +115,8 @@ Returns data frame with useful (below the threshold value) and useless (above th
 
 **Example**
 ``` r
-shape <- readOGR("shape.shp")
-test_clouds <- cloud.list(folders, shape) # folders have been set before
+shape = readOGR("shape.shp")
+test_clouds = cloud.list(folders, shape) # folders have been set before
 test_clouds
 ```
 
