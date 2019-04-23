@@ -104,7 +104,7 @@ To iterative processing through folders and save results to files use `create_ma
 ``` r
 folders = list.dirs("Scenes")
 folders = folders[-1] # skip the main folder
-create_mask(folders[1])
+create_mask(folders[5:10]) # you can choose which folders exactly
 ```
 
 ## spectralTools.R - cloud.list(folders, shape, cloudiness)
@@ -132,4 +132,4 @@ write.csv2(test_stats, file = "results.csv", row.names = FALSE)
 ```
 
 ## calibration.py
-Script to calibrate satellite images from Sentinel 2 using sen2cor. It supports multiple cores, but parallel processing can be turned off. To run set the correct settings and paths.
+Script to calibrate satellite images from Sentinel 2 using sen2cor. It supports multiple cores, but parallel processing can be turned off. To run set the correct settings and paths by script edit.
