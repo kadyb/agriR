@@ -23,8 +23,8 @@ Calculate Growing Degree Days by avarage model with thresholds. Function require
 - `x` - Data frame with temperatures
 - `temp_max` - Column with maximum temperature
 - `temp_min` - Column with minimum temperature
-- `temp_base` (= 10) - Base temperature (minimum threshold value)
-- `temp_limit` (= 30) - Temperature limit (maximum threshold value)
+- `temp_base` (default = 10) - Base temperature (minimum threshold value)
+- `temp_limit` (default = 30) - Temperature limit (maximum threshold value)
 
 **Example**
 ``` r
@@ -85,9 +85,9 @@ temp_avg_month = transform.meteo(temp_avg_month, "join")
 ## spectralTools.R - interpretQA(x, cloud, shadow, cirrus, sensor)
 Creates a raster with decoded quality conditions classes from Landsat 4-8 scenes. Function requires these arguments:
 - `x` - Pixel_qa raster 
-- `cloud` (= "high") - Level of confidence of pixels containing clouds ("high", "medium", "low")
-- `shadow` (= TRUE) - Include pixels containing shadows (TRUE, FALSE)
-- `cirrus` (= "high") - Level of confidence of pixels containing cirrus ("high", "medium", "low")
+- `cloud` (default = "high") - Level of confidence of pixels containing clouds ("high", "medium", "low")
+- `shadow` (default = TRUE) - Include pixels containing shadows (TRUE, FALSE)
+- `cirrus` (default = "high") - Level of confidence of pixels containing cirrus ("high", "medium", "low")
 - `sensor` - Name of sensor ("landsat8", "landsat7")
 
 **Example**
@@ -111,7 +111,7 @@ create_mask(folders[5:10]) # you can choose which folders exactly
 Returns data frame with useful (below the threshold value) and useless (above the threshold value) satellite scenes. This is average cloudiness for all features. Function requires these arguments:
 - `folders` - List with names of directories
 - `shape` - Vector shape
-- `cloudiness` (= 0.6) - Level of cloudiness from 0 to 1
+- `cloudiness` (default = 0.6) - Level of cloudiness from 0 to 1
 
 **Example**
 ``` r
