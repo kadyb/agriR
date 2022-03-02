@@ -18,21 +18,18 @@ data_transformed = RGB_transform(sample_data$R, sample_data$G, sample_data$B, 25
 data_transformed = data.frame(t(data_transformed)) # transpose matrix
 ```
 
-## calc_gdd.R
+## gdd.R
 Calculate Growing Degree Days by avarage model with thresholds. Function requires these arguments:
-- `x` - Data frame with temperatures
-- `temp_max` - Column with maximum temperature
-- `temp_min` - Column with minimum temperature
-- `temp_base` (default = 10) - Base temperature (minimum threshold value)
-- `temp_limit` (default = 30) - Temperature limit (maximum threshold value)
+- `temp_max` - maximum temperature; numeric
+- `temp_min` - minimum temperature; numeric
+- `temp_base` - base temperature (minimum threshold value); numeric
+- `temp_limit` - temperature limit (maximum threshold value, default = 30); numeric
 
 **Example**
 ``` r
-max2011 = as.vector(temp_max_day[, 1:5])
-min2011 = as.vector(temp_min_day[, 1:5])
-df2011 = data.frame(temp_max = max2011, temp_min = min2011)
-df2011 = na.omit(df2011)
-sum(calc_gdd(df2011, temp_max, temp_min, temp_base = 8, temp_limit = 28))
+temp_max = runif(n = 100, min = 10, max = 35)
+temp_min = runif(n = 100, min = -10, max = 10)
+x = gdd(temp_max, temp_min, temp_base = 5)
 ```
 
 ## merge_bbox.R
